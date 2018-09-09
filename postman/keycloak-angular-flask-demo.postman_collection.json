@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "58e88ab8-e448-401d-ab3d-87727289f422",
+		"name": "keycloak-angular-flask-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "0d712525-c33f-4372-ba96-fc8f75f0a500",
+			"name": "Backend OAuth2 Local Validation",
+			"item": [
+				{
+					"_postman_id": "4bc12080-a6a7-467a-829f-221a5c33e4e6",
+					"name": "Get token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "082fde14-06e4-4ff4-98fb-bb26aa6fc65b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "68c2f180-9683-459b-9c5d-bd963dcff7cd",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"access_token = jsonData.access_token",
+									"",
+									"",
+									"pm.environment.set(\"access_token\", access_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{caller_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{caller_client_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic dGVzdDo2OTVlNDg0Ny04MzQ3LTRjZjYtYThlYS01OGFiOGQ5MWY2NTA="
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "test",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_secret",
+									"value": "695e4847-8347-4cf6-a8ea-58ab8d91f650",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloak_url}}/auth/realms/{{realm}}/protocol/openid-connect/token",
+							"host": [
+								"{{keycloak_url}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "776750dc-556f-417d-a45b-e3bfe273e52e",
+					"name": "Secret API",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGSjg2R2NGM2pUYk5MT2NvNE52WmtVQ0lVbWZZQ3FvcXRPUWVNZmJoTmxFIn0.eyJqdGkiOiI3ZWVlOWJjMC05Mzg5LTQ2OTMtYTQxNy1kMmY1ZjRmYmRmNzQiLCJleHAiOjE1MzY0MDEzODAsIm5iZiI6MCwiaWF0IjoxNTM2NDAxMzIwLCJpc3MiOiJodHRwOi8vMTkyLjE2OC4yNi4xMjo4MDgwL2F1dGgvcmVhbG1zL2NvcnMiLCJhdWQiOiJ0ZXN0Iiwic3ViIjoiMWVkN2NhNzktMGQyNi00YmIyLWFiNDQtZjBlODcyMmFiYjE2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidGVzdCIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6ImVkM2JkOTM5LWViNTEtNDRlMC05NDAxLTliZjQ1MjcwMjE5MyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNi4yOCIsImNsaWVudElkIjoidGVzdCIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC10ZXN0IiwiY2xpZW50QWRkcmVzcyI6IjE5Mi4xNjguNi4yOCIsImVtYWlsIjoic2VydmljZS1hY2NvdW50LXRlc3RAcGxhY2Vob2xkZXIub3JnIn0.Di8lPaCyVFcUZj186MvBmFNMPkZU5z8GUW8VLexHwRBH_0POngkQ30BlLB9NZ5mHx91Ds6be4e0QxJX8pnmTBdt0HqgCWs5_N-HDFCNOju5jF4rKzY2ZbW-oagmUFyXg_KsUM6zNtjvWi-TjnV9pEWaewmJ2WAWTQE9rizPKVw8",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/secret",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"secret"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "1ffef8a4-e07f-4923-9116-8bfe11a8982d",
+					"name": "Get userinfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGSjg2R2NGM2pUYk5MT2NvNE52WmtVQ0lVbWZZQ3FvcXRPUWVNZmJoTmxFIn0.eyJqdGkiOiI0MGI1NGMyOC03YjZjLTQ1MmItYjFhNS03NjVhNDFmZGY3NDAiLCJleHAiOjE1MzY0MDI1MzgsIm5iZiI6MCwiaWF0IjoxNTM2NDAyNDc4LCJpc3MiOiJodHRwOi8vMTkyLjE2OC4yNi4xMjo4MDgwL2F1dGgvcmVhbG1zL2NvcnMiLCJhdWQiOiJ0ZXN0Iiwic3ViIjoiMWVkN2NhNzktMGQyNi00YmIyLWFiNDQtZjBlODcyMmFiYjE2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidGVzdCIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjIwNmNiNmU3LWRhNTQtNDEyOC05ZWE4LTdlYmU2OTE3NDlmNCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNi4yOCIsImNsaWVudElkIjoidGVzdCIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC10ZXN0IiwiY2xpZW50QWRkcmVzcyI6IjE5Mi4xNjguNi4yOCIsImVtYWlsIjoic2VydmljZS1hY2NvdW50LXRlc3RAcGxhY2Vob2xkZXIub3JnIn0.c35IRDzs6omc3Y2js0T0TqcQfLqqRxkFAU4eCptc99ozCaKvqJAwXvjULL3q02TaPZ_UzrNraO5WoMEyOQgN8HQpSzGqTsm4DIAFH5HUWk9FRfrsUEO44pvhCNhoHxyzS5GlRY4Ohp5O730T5d4q7olKIoZ418v6ExqIZxWO_qg",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGSjg2R2NGM2pUYk5MT2NvNE52WmtVQ0lVbWZZQ3FvcXRPUWVNZmJoTmxFIn0.eyJqdGkiOiI3OTcwNmY1NC00N2M3LTQ5MTEtYmNlMC0xYzRjZGYzYzk5M2IiLCJleHAiOjE1MzY0MDIyNDgsIm5iZiI6MCwiaWF0IjoxNTM2NDAyMTg4LCJpc3MiOiJodHRwOi8vMTkyLjE2OC4yNi4xMjo4MDgwL2F1dGgvcmVhbG1zL2NvcnMiLCJhdWQiOiJ0ZXN0Iiwic3ViIjoiMWVkN2NhNzktMGQyNi00YmIyLWFiNDQtZjBlODcyMmFiYjE2IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidGVzdCIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6IjA5NjVhODY5LWUzMDktNDIxMi05OWU2LWNlNWU1YzI5YzI0MCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNi4yOCIsImNsaWVudElkIjoidGVzdCIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC10ZXN0IiwiY2xpZW50QWRkcmVzcyI6IjE5Mi4xNjguNi4yOCIsImVtYWlsIjoic2VydmljZS1hY2NvdW50LXRlc3RAcGxhY2Vob2xkZXIub3JnIn0.ZpiM0W4OYco-2F1uwPBOPyaHabp_AqZ63XIjIXS27PTch805RdOHZvePtfma9wB9TgFim0z6pnb3Cnc6hxrLOiiWlu4eD4VWU2YSOKZ4rAM8YOifdUzNGp8HF7OVqmRdIX1mzmsAYlMjHgo25LR-3AWGYeq75MYO40sHkH0d_0k\n",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "token_type_hint",
+									"value": "access_token",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{keycloak_url}}/auth/realms/{{realm}}/protocol/openid-connect/userinfo",
+							"host": [
+								"{{keycloak_url}}"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"userinfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
