@@ -4,7 +4,7 @@
   "description": "Keycloak Quickstart written in Angular 2",
   "scripts": {
     "build": "tsc -p ./",
-    "build:watch": "tsc -p ./ -w"  
+    "build:watch": "tsc -p ./ -w"
   },
   "keywords": [],
   "author": "Stan Silvert",
@@ -33,7 +33,7 @@
     "@types/node": "^6.0.46"
   },
   "repository": {
-      "type": "git",
-      "url" : "git://github.com/keycloak/keycloak-quickstarts.git"
+    "type": "git",
+    "url": "git://github.com/keycloak/keycloak-quickstarts.git"
   }
 }
