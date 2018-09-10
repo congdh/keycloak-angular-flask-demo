@@ -1,0 +1,8 @@
+{
+  "realm": "quickstart",
+  "auth-server-url": "http://192.168.26.12:8080/auth",
+  "ssl-required": "external",
+  "resource": "app-angular2",
+  "public-client": true,
+  "confidential-port": 0
+}
