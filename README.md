@@ -22,6 +22,10 @@ Start Postman, import environment `Dev` và collection `keycloak-angular-flask-d
 
 Trong Postman, send các request `Get token`, `Secret API` để lấy token và truy cập đến API
 
+## Flask web
+
+Webapp Flask (frontend + backend) sử dụng Keycload để đăng nhập, trong API gọi sang API /greeting sử dụng token của user đang đăng nhập
+
 ## SPA Angular 2 Service Invocation Application
 
 Start frontend SPA theo [hướng dẫn](./app-angular2/README.md)
