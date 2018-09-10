@@ -17,6 +17,10 @@ def get_secret(user) -> str:
     return 'You are: {uid}'.format(uid=user)
 
 
+def get_public() -> str:
+    return 'Public'
+
+
 def token_info(access_token) -> dict:
     public_key = b'-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqlVDBYDyxuXK+5gzQCqvimQ11UqIXdPEXwn76r1ckTxb13SfRkgL/d/UYHUDPKo+uMbamonmqilHlCfHRZzu/S+1sc9x6FemH2me9MyO24uBHx9dZEmyhK2eVuIBJ/zx5F7gWODQ+kdLVz/be8y1CG+tr4ZCCVVw1xC5WB2fDpt/N3m7kwK+KKxjjiZokLGPK8N+Ahx1tCK+iuazNHfJCEGNjt+pzEcxe8QmL53GqWLwg6GsQkGn3cbOtKH9R8oq2nX6VLt/LBkZhYZybGKJ56bOVbtvE4QHrRIH6/6xnM7pj9l4O7O9WPH1cnyM6uwYajPR4OlAX1FiiCFE8rGgswIDAQAB\n-----END PUBLIC KEY-----'
     options = {'verify_aud': False}

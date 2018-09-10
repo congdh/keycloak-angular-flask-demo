@@ -17,6 +17,18 @@ paths:
       security:
         # enable authentication and require the "email" scope for this endpoint
         - oauth2: ['email']
+  /public:
+    get:
+      summary: Requires no authentication
+      operationId: app.get_public
+      responses:
+        200:
+          description: response
+          schema:
+            type: string
+      security:
+      # enable authentication and require the "email" scope for this endpoint
+      - oauth2: ['email']
 
 securityDefinitions:
   oauth2:
