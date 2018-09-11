@@ -6,9 +6,8 @@ SPA sử dụng Angular2 xác thực bằng Keycloak. Tham khảo từ example [
 ```bash
 npm install
 npm run build
-# npm install http-server -g
+npm install http-server -g
 
 #run
-# http-server -p 8000 --cors
-python server.py
+http-server -p 8000
 ```
