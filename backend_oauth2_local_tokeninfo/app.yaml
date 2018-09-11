@@ -38,10 +38,33 @@ paths:
         200:
           description: response
           schema:
+            type: string      
+  
+  /secured:
+    get:
+      summary: Requires authenticated user
+      operationId: app.get_secured
+      responses:
+        200:
+          description: response
+          schema:
             type: string
       security:
       # enable authentication and require the "email" scope for this endpoint
       - oauth2: ['email']
+
+  /admin:
+    get:
+      summary: Requires admin role - TODO
+      operationId: app.get_admin
+      responses:
+        200:
+          description: response
+          schema:
+            type: string
+      security:
+      # enable authentication and require the "email" scope for this endpoint
+      - oauth2: ['test']
 
 securityDefinitions:
   oauth2:
