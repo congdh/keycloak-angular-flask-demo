@@ -29,7 +29,7 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent {
 
-  private serviceUrl: string = 'http://127.0.0.1:8080/service/';
+  private serviceUrl: string = 'http://127.0.0.1:8080/';
 
   public message: string;
   public errorClass: string = '';
@@ -61,6 +61,7 @@ export class AppComponent {
 
   private handleResponse(res: Response, comp: AppComponent) {
     comp.errorClass = '';
+    console.log('Message response: ' + res)
     comp.message = 'Message: ' + res.json().message;
   }
 
