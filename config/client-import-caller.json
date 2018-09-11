@@ -1,0 +1,7 @@
+{
+    "clientId": "caller",    
+    "enabled": true,    
+    "standardFlowEnabled": false,        
+    "serviceAccountsEnabled": true,    
+    "publicClient": false    
+}
